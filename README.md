@@ -61,7 +61,7 @@ Data Layer → PostgreSQL Database
 
  
 
-## 🗄 Database Design
+##  Database Design
 
 ### Main Entities
 
