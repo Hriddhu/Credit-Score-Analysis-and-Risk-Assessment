@@ -54,7 +54,10 @@ def login(request):
     if validation_error:
         return JsonResponse({"error": validation_error}, status=status.HTTP_400_BAD_REQUEST)
 
-    if username == settings.ADMIN_USERNAME and password == settings.ADMIN_PASSWORD:
+    admin_username = getattr(settings, "ADMIN_USERNAME", None)
+    admin_password = getattr(settings, "ADMIN_PASSWORD", None)
+
+    if admin_username and admin_password and username == admin_username and password == admin_password:
         token = generate_token(username, is_admin=True)
         return JsonResponse(
             {
