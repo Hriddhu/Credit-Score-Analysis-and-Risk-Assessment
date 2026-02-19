@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 
 from .services import (
     create_user,
@@ -57,7 +56,7 @@ def login(request):
 
     if username == settings.ADMIN_USERNAME and password == settings.ADMIN_PASSWORD:
         token = generate_token(username, is_admin=True)
-        return JsonJsonResponse(
+        return JsonResponse(
             {
                 "message": "Admin login successful!",
                 "username": username,
@@ -69,7 +68,7 @@ def login(request):
 
     if validate_user_credentials(username, password):
         token = generate_token(username, is_admin=False)
-        return JsonJsonResponse(
+        return JsonResponse(
             {
                 "message": "Login successful!",
                 "username": username,
@@ -79,4 +78,4 @@ def login(request):
             status=status.HTTP_200_OK,
         )
 
-    return JsonJsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    return JsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
