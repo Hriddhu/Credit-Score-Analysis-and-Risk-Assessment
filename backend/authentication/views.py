@@ -1,5 +1,5 @@
 from django.conf import settings
-
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -24,7 +24,7 @@ def signup(request):
 
     validation_error = validate_signup_payload(username, email, password)
     if validation_error:
-        return Response({"error": validation_error}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"error": validation_error}, status=status.HTTP_400_BAD_REQUEST)
 
     address = request.data.get("address")
     dob = request.data.get("dob")
@@ -40,9 +40,9 @@ def signup(request):
         phone=phone,
     )
     if not user_created:
-        return Response({"error": "Username or email already exists."}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"error": "Username or email already exists."}, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({"message": "User created successfully!"}, status=status.HTTP_201_CREATED)
+    return JsonResponse({"message": "User created successfully!"}, status=status.HTTP_201_CREATED)
 
 
 @api_view(["POST"])
@@ -53,11 +53,11 @@ def login(request):
 
     validation_error = validate_login_payload(username, password)
     if validation_error:
-        return Response({"error": validation_error}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"error": validation_error}, status=status.HTTP_400_BAD_REQUEST)
 
     if username == settings.ADMIN_USERNAME and password == settings.ADMIN_PASSWORD:
         token = generate_token(username, is_admin=True)
-        return Response(
+        return JsonJsonResponse(
             {
                 "message": "Admin login successful!",
                 "username": username,
@@ -69,7 +69,7 @@ def login(request):
 
     if validate_user_credentials(username, password):
         token = generate_token(username, is_admin=False)
-        return Response(
+        return JsonJsonResponse(
             {
                 "message": "Login successful!",
                 "username": username,
@@ -79,4 +79,4 @@ def login(request):
             status=status.HTTP_200_OK,
         )
 
-    return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    return JsonJsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
