@@ -39,8 +39,6 @@ def validate_signup_payload(username, email, password):
 def validate_login_payload(username, password):
     if not username or not password:
         return "Username and password are required."
-    if not USERNAME_PATTERN.match(username):
-        return "Enter a valid username."
     return None
 
 
