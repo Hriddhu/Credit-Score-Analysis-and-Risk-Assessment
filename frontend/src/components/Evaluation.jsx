@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://credit-score-analysis-and-risk.onrender.com";
 const cn = (...c) => c.filter(Boolean).join(" ");
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
