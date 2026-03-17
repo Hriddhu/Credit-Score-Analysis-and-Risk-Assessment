@@ -48,7 +48,7 @@ financial risk modeling, and full-stack development.
 ### Database
 
 -   PostgreSQL
-
+Note: Despite using django framework, we completely discarded ORM and wrote SQL queries for the entire DB.
  
 
 ##  System Architecture
